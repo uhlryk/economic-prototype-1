@@ -1,0 +1,64 @@
+@import "compass";
+@import "compass/reset";
+@import "bootstrap";
+
+html, body{
+  height: 100%;
+}
+.layout{
+  height: 100%;
+}
+body {
+  background-color: #fff;
+}
+.container-vertical {
+  height: 100%;
+  display: table;
+}
+.vertical-center-row {
+  display: table-cell;
+  vertical-align: middle;
+  position:relative;
+  top:-50px;
+}
+.medium-label{
+  font-size:19px;
+}
+.error-template {padding: 40px 15px;text-align: center;}
+.logo-input{
+  width:100%;
+}
+.game-window{
+  @extend .container-fluid;
+  width:100%;
+  height:100%;
+  padding-left:0;
+  padding-right:0;
+}
+.sidebar{
+  @extend .col-sm-3;
+  background:#aaa;
+  height: 100%;
+}
+.resource-navbar{
+  @extend .navbar;
+  @extend .navbar-inverse;
+  @extend .navbar-fixed-top;
+  min-height: 0px;
+}
+.nav-line{
+  @extend .row;
+  height:100%;
+  color:white;
+}
+.day-col,.resource-col {
+  @extend .col-sm-1;
+  @extend .text-center;
+  padding-top:7px;
+  padding-bottom:7px;
+  font-size:13px;
+  height:100%;
+}
+.day-col{
+  background:#333;
+}

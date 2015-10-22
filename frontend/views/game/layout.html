@@ -1,0 +1,16 @@
+<nav class="resource-navbar" ng-include="'js/partials/game/topmenu.html'" ng-controller="TopController"></nav>
+<div class="game-window">
+  <div class="sidebar" ng-include="'js/partials/game/sidemenu.html'" ng-controller="SideController"></div>
+  <div class="col-sm-9 main">
+    <h1 class="page-header">{{panelTitle}}</h1>
+    <div class="row">
+      <div class="col-sm-12">
+        <p class="bg-danger text-center" ng-show="errorMessage">{{errorMessage}}</p>
+        <p class="bg-success text-center" ng-show="successMessage">{{successMessage}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div ui-view></div>
+    </div>
+  </div>
+</div>
