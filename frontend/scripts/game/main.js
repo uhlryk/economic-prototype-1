@@ -1,9 +1,7 @@
 /*jslint node: true */
 "use strict";
 require("./controllers");
-require("./services");
-
-module.exports = angular.module('EconomicGame.Game',['EconomicGame.Game.Controllers','EconomicGame.Game.Services']);
+module.exports = angular.module('EconomicGame.Game',['EconomicGame.Game.Controllers']);
 angular.module('EconomicGame.Game').config(["$stateProvider", function($stateProvider){
   $stateProvider
   .state("game", {

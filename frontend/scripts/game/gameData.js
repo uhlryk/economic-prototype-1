@@ -1,9 +1,9 @@
 /*jslint node: true */
 "use strict";
-var Resource = require("./resource");
-var BuildDefinitionList = require("./buildDefinitionList");
-module.exports = angular.module('EconomicGame.Game.Services',[])
-.service('data', function () {
+var Resource = require("./gameData/resource");
+var BuildDefinitionList = require("./gameData/buildDefinitionList");
+module.exports = angular.module('EconomicGame.Game.Data',[])
+.service('gameData', function () {
   this.definition = new BuildDefinitionList();
   this.definition.add('woodcutter',{logs:2,   stone:1},{food:-1,logs:3});
   this.definition.add('sawmill',   {boards:3, stone:3},{food:-2,logs:-4,boards:2});
@@ -30,10 +30,10 @@ module.exports = angular.module('EconomicGame.Game.Services',[])
 
       }
     }
-  }
+  };
   this.build = function() {
 
-  }
+  };
 })
 ;
 

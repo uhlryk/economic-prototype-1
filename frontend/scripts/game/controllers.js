@@ -1,27 +1,18 @@
 /*jslint node: true */
 "use strict";
-module.exports = angular.module('EconomicGame.Game.Controllers',[])
-.controller("GameController", ['$scope', '$timeout', 'data', function($scope, $timeout, data){
-  console.log("GameController");
-  data.init();
-  console.log(data.actualResources.getList());
-  $scope.day = 999;
-
-  $scope.resouces = data.actualResources.getList();
+require("./gameTime");
+require("./gameData");
+module.exports = angular.module('EconomicGame.Game.Controllers',['EconomicGame.Game.Time','EconomicGame.Game.Data'])
+.controller("GameController", ['$scope', '$timeout', 'gameData','gameTime', function($scope, $timeout, gameData, gameTime){
+  gameData.init();
+  gameTime.init();
+  $scope.day = gameTime.getDay();
   $scope.$watch('resouces',function(){});
-  var time = 0;
-  var gameLoop = function() {
-    var cancelRefresh= $timeout(function myFunction() {
-      console.log(time*25 + "%");
-      time ++;
-      if(time>3){
-        time = 0;
-        $scope.day ++;
-      }
-      cancelRefresh = $timeout(gameLoop, 1000);
-    },1000);
-  };
-  gameLoop();
+  $scope.resources = gameData.actualResources.getList();
+  gameTime.addDayListener(function(time, day) {
+    $scope.day = day;
+  });
+  gameTime.start();
 }])
 .controller("TopController", ['$scope', function($scope){
   console.log("TopController");
