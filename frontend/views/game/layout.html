@@ -1,7 +1,7 @@
-<nav class="resource-navbar" ng-include="'js/partials/game/topmenu.html'" ng-controller="TopController"></nav>
+<nav class="resource-navbar" ng-include="'js/partials/game/topmenu.html'" ng-controller="Game.TopController"></nav>
 <div class="game-window">
-  <div class="sidebar" ng-include="'js/partials/game/sidemenu.html'" ng-controller="SideController"></div>
-  <div class="col-sm-9 main">
+  <div class="sidebar" ng-include="'js/partials/game/sidemenu.html'" ng-controller="Game.SideController"></div>
+  <div class="col-sm-10 col-sm-offset-2 main">
     <h1 class="page-header">{{panelTitle}}</h1>
     <div class="row">
       <div class="col-sm-12">
@@ -9,8 +9,7 @@
         <p class="bg-success text-center" ng-show="successMessage">{{successMessage}}</p>
       </div>
     </div>
-    <div class="row">
-      <div ui-view></div>
+    <div class="row" ui-view>
     </div>
   </div>
 </div>

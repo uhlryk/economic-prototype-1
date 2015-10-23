@@ -1,0 +1,31 @@
+<div class="col-sm-12">
+  <div class="row" ng-repeat="(buildingName,buildingData) in definition">
+    <div class="col-sm-12">
+      <table class="building-table">
+        <thead>
+          <tr>
+            <th colspan="{{resourceNameList.length-3}}" class="build-name">{{buildingName}}</th>
+            <th>quantity: </th>
+            <th>{{buildings[buildingName]}}</th>
+            <th><a ui-sref="" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span> BUILD</a></th>
+            <th><a ui-sref="" class="btn btn-default"><span class="glyphicon glyphicon-minus-sign"></span> DEMOLISH</a></th>
+          </tr>
+          <tr>
+            <th></th>
+            <th ng-repeat="resourceName in resourceNameList">{{resourceName}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Build Resource</td>
+            <td ng-repeat="resourceName in resourceNameList">{{buildingData.buildResource[resourceName]||0}}</td>
+          </tr>
+          <tr>
+            <td>Daily Resources</td>
+            <td ng-repeat="resourceName in resourceNameList">{{buildingData.timeResource[resourceName]||0}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

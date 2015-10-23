@@ -1,16 +1,18 @@
 /*jslint node: true */
 "use strict";
 require("./controllers");
-module.exports = angular.module('EconomicGame.Game',['EconomicGame.Game.Controllers']);
-angular.module('EconomicGame.Game').config(["$stateProvider", function($stateProvider){
+require("./buildings/main");
+module.exports = angular.module('Game',['Game.Controllers','Buildings'])
+.config(["$stateProvider", function($stateProvider){
   $stateProvider
   .state("game", {
     abstract : true,
+    url : "/game",
     templateUrl: "js/views/game/layout.html",
-    controller : 'GameController',
+    controller : 'Game.MainController',
   })
   .state("game.dashboard", {
-    url : "/game/dashboard",
+    url : "/dashboard",
     templateUrl: "js/views/game/dashboard.html",
     controller : "Game.DashboardController"
   })

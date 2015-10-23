@@ -12,6 +12,9 @@ BuildDefinitionList.prototype.add = function(name, buildResource, timeResource){
 BuildDefinitionList.prototype.get = function(name){
   return this.list[name];
 };
+BuildDefinitionList.prototype.getList = function(){
+  return this.list;
+};
 BuildDefinitionList.prototype.getBuildResource = function(name){
   return this.get(name).buildResource;
 };

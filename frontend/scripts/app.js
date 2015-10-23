@@ -4,8 +4,8 @@
   require('./controllers');
   require('./services');
   require('./game/main');
-  var app = angular.module('EconomicGame', ['ngAnimate', 'angularMoment', 'ui.router','dynamicNumber', 'EconomicGame.Controllers', 'EconomicGame.Services','EconomicGame.Game']);
-  app.config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function($locationProvider, $stateProvider, $urlRouterProvider){
+  var app = angular.module('EconomicGame', ['ngAnimate', 'angularMoment', 'ui.router','dynamicNumber', 'EconomicGame.Controllers', 'EconomicGame.Services','Game'])
+  .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function($locationProvider, $stateProvider, $urlRouterProvider){
     $stateProvider
     .state('404', {
       url: '/404',
@@ -19,8 +19,8 @@
     ;
     $urlRouterProvider.otherwise('/404.html');
     $locationProvider.html5Mode(true);
-  }]);
-  angular.module('EconomicGame').run(['$state', '$rootScope', function($state, $rootScope) {
+  }])
+  .run(['$state', '$rootScope', function($state, $rootScope) {
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
       switch(error){
         default:
