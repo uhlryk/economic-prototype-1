@@ -1,0 +1,23 @@
+<div class="col-sm-12">
+  <div class="row" ng-repeat="(buildingName,buildingData) in definition">
+    <div class="col-sm-12">
+      <h2>{{buildingName}}</h2>
+      <table class="building-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>quantity</th>
+            <th ng-repeat="resourceName in resourceNameList">{{resourceName}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Daily Resources</td>
+            <td>{{buildings[buildingName]}}</td>
+            <td ng-repeat="resourceName in resourceNameList">{{(buildingData.timeResource[resourceName]||0) * buildings[buildingName]}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

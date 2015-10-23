@@ -10,6 +10,11 @@ module.exports = angular.module('Buildings',['Buildings.Controllers'])
     controller : "Buildings.MainController",
     template : '<div ui-view></div'
   })
+  .state("game.buildings.list", {
+    url : "/list",
+    templateUrl: "js/views/game/buildings/list.html",
+    controller : "Buildings.ListController"
+  })
   .state("game.buildings.construct", {
     url : "/construct",
     templateUrl: "js/views/game/buildings/construct.html",

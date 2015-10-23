@@ -33,8 +33,19 @@ module.exports = angular.module('EconomicGame.Game.Data',[])
       }
     }
   };
-  this.build = function() {
-
+  this.build = function(buildingName) {
+    var building = this.definition.get(buildingName);
+    var buildResource = building.buildResource;
+    if(this.actualResources.isEnough(buildResource)) {
+      this.actualResources.addList(buildResource);
+      this.buildings.increment(buildingName);
+    }
+  };
+  this.demolish = function(buildingName) {
+    var quantity = this.buildings.get(buildingName);
+    if(quantity>0){
+      this.buildings.decrement(buildingName);
+    }
   };
 })
 ;

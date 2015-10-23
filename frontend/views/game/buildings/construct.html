@@ -7,8 +7,8 @@
             <th colspan="{{resourceNameList.length-3}}" class="build-name">{{buildingName}}</th>
             <th>quantity: </th>
             <th>{{buildings[buildingName]}}</th>
-            <th><a ui-sref="" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span> BUILD</a></th>
-            <th><a ui-sref="" class="btn btn-default"><span class="glyphicon glyphicon-minus-sign"></span> DEMOLISH</a></th>
+            <th><button ng-click="build(buildingName)" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span> BUILD</button></th>
+            <th><button ng-click="demolish(buildingName)" class="btn btn-default"><span class="glyphicon glyphicon-minus-sign"></span> DEMOLISH</button></th>
           </tr>
           <tr>
             <th></th>
