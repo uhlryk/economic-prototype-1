@@ -1,6 +1,6 @@
 /*jslint node: true */
 "use strict";
-module.exports = angular.module('EconomicGame.Game.Time',[])
+module.exports = angular.module('Game.Time',[])
 .service('gameTime',['$timeout',function($timeout){
   var interval = 500;
   var daytime, day, dayListener, timeListener, refreshControl;
