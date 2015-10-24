@@ -20,7 +20,7 @@ module.exports = angular.module('Game.Data',[])
   this.actualResources = new Resource(this.resourceNameList);
   this.nextDayResources = new Resource(this.resourceNameList);
   this.init = function(){
-    this.actualResources.reset().setList({logs:20,boards:10,stone:20,food:20,iron:10,tools:10, weapons:10});
+    this.actualResources.reset().setList({logs:20,boards:10,stone:20,food:20,'iron ore':5,iron:10,tools:10, weapons:10});
     this.nextDayResources.reset();
     this.buildings.reset();
   };

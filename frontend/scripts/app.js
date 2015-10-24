@@ -4,7 +4,7 @@
   require('./controllers');
   require('./services');
   require('./game/main');
-  var app = angular.module('EconomicGame', ['ngAnimate', 'angularMoment', 'ui.router','dynamicNumber', 'EconomicGame.Controllers', 'EconomicGame.Services','Game'])
+  var app = angular.module('EconomicGame', ['ngAnimate', 'ui.router','dynamicNumber', 'EconomicGame.Controllers', 'EconomicGame.Services','Game'])
   .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function($locationProvider, $stateProvider, $urlRouterProvider){
     $stateProvider
     .state('404', {
