@@ -2,7 +2,8 @@
 "use strict";
 require("./controllers");
 require("./buildings/main");
-module.exports = angular.module('Game',['Game.Controllers','Buildings'])
+require("./chartsDirectives");
+module.exports = angular.module('Game',['Game.Controllers','Buildings','charts'])
 .config(["$stateProvider", function($stateProvider){
   $stateProvider
   .state("game", {

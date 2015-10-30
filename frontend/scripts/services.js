@@ -10,16 +10,29 @@ module.exports = angular.module('EconomicGame.Services',[])
     memoryData = {};
   };
   this.add = function(key, day, data){
-    if(!memoryData.key){
-      memoryData.key = [];
+    if(!memoryData[key]){
+      memoryData[key] = {};
     }
-    memoryData.key[day] = data;
+    for(var i in data){
+      if(data.hasOwnProperty(i)){
+        if(!memoryData[key][i]){
+          memoryData[key][i] = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        }
+        memoryData[key][i].push(data[i]);
+        if(memoryData[key][i].length > 21){
+          memoryData[key][i] = memoryData[key][i].splice(memoryData[key][i].length-21,21);
+        }
+      }
+    }
   };
-  this.get = function(key){
-    if(!memoryData.key){
-      memoryData.key = [];
+  this.get = function(key1, key2){
+    if(!memoryData[key1]){
+      memoryData[key1] = [];
     }
-    return memoryData.key;
+    if(!memoryData[key1][key2]){
+      memoryData[key1][key2] = [];
+    }
+    return memoryData[key1][key2];
   };
 });
 

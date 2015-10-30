@@ -1,7 +1,8 @@
 <div class="col-sm-12">
   <div class="row" ng-repeat="(buildingName,buildingData) in definition">
     <div class="col-sm-12">
-      <h2>{{buildingName}}</h2>
+      <h2 class="text-center">{{buildingName}}</h2>
+      <div buildings-per-day="{{buildingName}}" day="day" class="building-chart"></div>
       <table class="building-table">
         <thead>
           <tr>

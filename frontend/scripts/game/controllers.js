@@ -14,6 +14,8 @@ module.exports = angular.module('Game.Controllers',['Game.Time','Game.Data'])
   $scope.resourceNameList = gameData.resourceNameList;
   $scope.buildings = gameData.buildings.getList();
   $scope.definition = gameData.definition.getList();
+  storage.add("resource",1, JSON.parse(JSON.stringify(gameData.actualResources.getList())));
+  storage.add("buildings",1, JSON.parse(JSON.stringify(gameData.buildings.getList())));
   gameTime.addDayListener(function(time, day) {
     $scope.day = day;
     gameData.calculate();
