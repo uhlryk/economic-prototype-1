@@ -1,4 +1,4 @@
-module.exports = angular.module('charts',[])
+module.exports = angular.module('buildingBarChartDirective',[])
 .directive('buildingsPerDay', ['storage',function(storage){
   return {
     scope:{
@@ -29,8 +29,8 @@ module.exports = angular.module('charts',[])
         }
         var startVal = data.shift();
         svg.selectAll("*").remove();
-        data.forEach(function(d) {
-          d = +d;
+        data.map(function(d) {
+          return +d;
         });
         x.domain(data.map(function(d,i) {return i; }));
         y.domain([0, d3.max(data.concat(5), function(d) { return d; })]);
@@ -75,11 +75,6 @@ module.exports = angular.module('charts',[])
           }
           return height - y(d);
         });
-        svg.selectAll("rect").data(data).enter().append("text")
-        .attr("x", x.rangeBand() / 2)
-        .attr("y", function(d,i) { return (d * 100); })
-        .style("text-anchor", "middle").style("font-size", "10px")
-        .text(function(d) {return (d * 100); });
       };
       scope.$watch('day', function(){
         scope.render(storage.get('buildings',scope.buildingsPerDay));

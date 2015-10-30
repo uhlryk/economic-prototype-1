@@ -1,0 +1,20 @@
+<div class="col-sm-12">
+    <div resources-per-day day="day" filters="filters" colors="colors" class="resources-chart"></div>
+    <div class="btn-group block-center">
+      <button ng-click="clickFilter(resourceName)" type="button" class="resource-chart-button" ng-class="{active:filters[resourceName]}" ng-repeat="(resourceName,resourceValue) in resources" style="background:{{colors[$index]}}">{{resourceName}}</button>
+    </div>
+    <table class="resource-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th ng-repeat="(resourceName,resourceValue) in resources" >{{resourceName}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Daily Resources</td>
+          <td ng-repeat="(resourceName,resourceValue) in resources" >{{resourceValue||0}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>

@@ -7,6 +7,12 @@ module.exports = angular.module('Game.Controllers',['Game.Time','Game.Data'])
   storage.init();
   gameData.init();
   gameTime.init();
+  $scope.filters = {};
+  for(var i=0; i < gameData.resourceNameList.length;i++){
+    var resourceName = gameData.resourceNameList[i];
+    $scope.filters[resourceName] = true;
+  }
+
   $scope.day = gameTime.getDay();
   $scope.$watch('resouces',function(){});
   $scope.resources = gameData.actualResources.getList();
@@ -14,13 +20,13 @@ module.exports = angular.module('Game.Controllers',['Game.Time','Game.Data'])
   $scope.resourceNameList = gameData.resourceNameList;
   $scope.buildings = gameData.buildings.getList();
   $scope.definition = gameData.definition.getList();
-  storage.add("resource",1, JSON.parse(JSON.stringify(gameData.actualResources.getList())));
-  storage.add("buildings",1, JSON.parse(JSON.stringify(gameData.buildings.getList())));
+  storage.add("resource",JSON.parse(JSON.stringify(gameData.actualResources.getList())));
+  storage.add("buildings",JSON.parse(JSON.stringify(gameData.buildings.getList())));
   gameTime.addDayListener(function(time, day) {
     $scope.day = day;
-    gameData.calculate();
-    storage.add("resource",day, JSON.parse(JSON.stringify(gameData.actualResources.getList())));
-    storage.add("buildings",day, JSON.parse(JSON.stringify(gameData.buildings.getList())));
+    gameData.addNextDayResources();
+    storage.add("resource",JSON.parse(JSON.stringify(gameData.actualResources.getList())));
+    storage.add("buildings",JSON.parse(JSON.stringify(gameData.buildings.getList())));
   });
   gameTime.start();
 }])

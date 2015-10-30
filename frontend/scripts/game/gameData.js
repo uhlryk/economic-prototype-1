@@ -25,7 +25,6 @@ module.exports = angular.module('Game.Data',[])
     this.buildings.reset();
   };
   this.calculate = function(){
-    this.actualResources.addList(this.nextDayResources.getList());
     this.nextDayResources.reset();
     for(var i=0;i < this.buildNameList.length; i++){
       var buildingName = this.buildNameList[i];
@@ -36,18 +35,24 @@ module.exports = angular.module('Game.Data',[])
       }
     }
   };
+  this.addNextDayResources = function(){
+    this.actualResources.addList(this.nextDayResources.getList());
+    this.calculate();
+  };
   this.build = function(buildingName) {
     var building = this.definition.get(buildingName);
     var buildResource = building.buildResource;
     if(this.actualResources.isEnough(buildResource)) {
       this.actualResources.addList(buildResource);
       this.buildings.increment(buildingName);
+      this.calculate();
     }
   };
   this.demolish = function(buildingName) {
     var quantity = this.buildings.get(buildingName);
     if(quantity>0){
       this.buildings.decrement(buildingName);
+      this.calculate();
     }
   };
 })
