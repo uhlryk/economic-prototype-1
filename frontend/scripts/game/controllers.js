@@ -12,12 +12,14 @@ module.exports = angular.module('Game.Controllers',['Game.Time','Game.Data'])
     var resourceName = gameData.resourceNameList[i];
     $scope.filters[resourceName] = true;
   }
-
   $scope.day = gameTime.getDay();
   $scope.$watch('resouces',function(){});
   $scope.resources = gameData.actualResources.getList();
+  $scope.$watch('terrains',function(){});
+  $scope.terrains = gameData.actualTerrains.getList();
   $scope.$watch('buildings',function(){});
   $scope.resourceNameList = gameData.resourceNameList;
+  $scope.terrainNameList = gameData.terrainNameList;
   $scope.buildings = gameData.buildings.getList();
   $scope.definition = gameData.definition.getList();
   storage.add("resource",JSON.parse(JSON.stringify(gameData.actualResources.getList())));
@@ -25,6 +27,8 @@ module.exports = angular.module('Game.Controllers',['Game.Time','Game.Data'])
   gameTime.addDayListener(function(time, day) {
     $scope.day = day;
     gameData.addNextDayResources();
+    gameData.addNextDayTerrains();
+    gameData.calculate();
     storage.add("resource",JSON.parse(JSON.stringify(gameData.actualResources.getList())));
     storage.add("buildings",JSON.parse(JSON.stringify(gameData.buildings.getList())));
   });

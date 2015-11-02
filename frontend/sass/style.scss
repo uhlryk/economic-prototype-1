@@ -95,9 +95,22 @@ body {
   background:#333;
 }
 .resource-column {
-  @extend .col-sm-6;
+  @extend .col-sm-4;
 }
 .single-resource-column {
+  @extend .col-sm-1;
+  @extend .text-center;
+  padding-top:10px;
+  padding-bottom:10px;
+  font-size:10px;
+  height:100%;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.terrain-column {
+  @extend .col-sm-6;
+}
+.single-terrain-column {
   @extend .col-sm-1;
   @extend .text-center;
   padding-top:10px;

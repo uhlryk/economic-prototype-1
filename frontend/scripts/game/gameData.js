@@ -1,60 +1,71 @@
 /*jslint node: true */
 "use strict";
+require("./buildDefinition");
 var Resource = require("./gameData/resource");
-var BuildDefinitionList = require("./gameData/buildDefinitionList");
-module.exports = angular.module('Game.Data',[])
-.service('gameData', function () {
+function rand(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+module.exports = angular.module('Game.Data',['Game.BuildDefinition'])
+.service('gameData', ['buildDefinition', function (buildDefinition) {
   this.resourceNameList = ['logs','boards','stone','food','iron ore','iron','tools', 'weapons'];
   this.buildNameList = ['woodcutter','sawmill','farm','stonemason','ironmine','ironsmelter', 'metalworks', 'armory'];
-  this.definition = new BuildDefinitionList();
-  this.definition.add('woodcutter',{logs:-2,   stone:-1},{food:-1,logs:3});
-  this.definition.add('sawmill',   {boards:-3, stone:-3},{food:-2,logs:-4,boards:2});
-  this.definition.add('farm',      {boards:-3, stone:-4},{logs:-1,stone:-1,food:3});
-  this.definition.add('stonemason',{boards:-2, stone:-1},{food:-1,stone:3});
-  this.definition.add('ironmine',  {boards:-3, stone:-2},{food:-3,'iron ore':2 });
-  this.definition.add('ironsmelter',  {boards:-3, stone:-3},{food:-3,logs:2,'iron ore':-4,iron:2 });
-  this.definition.add('metalworks',  {boards:-3, stone:-4},{food:-3,iron:-2,boards:-3,tools:2});
-  this.definition.add('armory',  {boards:-4, stone:-4},{food:-3,iron:-2,logs:-3,weapons:2});
-
+  this.terrainNameList = ['grassland', 'hill', 'forest', 'desert', 'stone deposit','coal deposit', 'iron deposit'];
+  this.definition = buildDefinition.definition;
   this.buildings = new Resource(this.buildNameList);
   this.actualResources = new Resource(this.resourceNameList);
   this.nextDayResources = new Resource(this.resourceNameList);
+  this.actualTerrains = new Resource(this.terrainNameList);
+  this.nextDayTerrains = new Resource(this.terrainNameList);
   this.init = function(){
     this.actualResources.reset().setList({logs:20,boards:10,stone:20,food:20,'iron ore':5,iron:10,tools:10, weapons:10});
+    this.actualTerrains.reset().setList({grassland:rand(50,60),hill:rand(10,20),forest:rand(50,60),desert:rand(10,20),'stone deposit':rand(50,60), 'coal deposit':rand(30,40), 'iron deposit':rand(30,40)});
     this.nextDayResources.reset();
+    this.nextDayTerrains.reset();
     this.buildings.reset();
   };
   this.calculate = function(){
     this.nextDayResources.reset();
+    this.nextDayTerrains.reset();
     for(var i=0;i < this.buildNameList.length; i++){
       var buildingName = this.buildNameList[i];
       var quantity = this.buildings.get(buildingName);
       var buildTimeResource = this.definition.getTimeResource(buildingName);
+      var buildTimeTerrain = this.definition.getTimeTerrain(buildingName);
       for(var resName in buildTimeResource){
         this.nextDayResources.add(resName, buildTimeResource[resName] * quantity);
+      }
+      for(var terName in buildTimeTerrain){
+        this.nextDayTerrains.add(terName, buildTimeTerrain[terName] * quantity);
       }
     }
   };
   this.addNextDayResources = function(){
     this.actualResources.addList(this.nextDayResources.getList());
-    this.calculate();
+  };
+  this.addNextDayTerrains = function(){
+    this.actualTerrains.addList(this.nextDayTerrains.getList());
   };
   this.build = function(buildingName) {
     var building = this.definition.get(buildingName);
     var buildResource = building.buildResource;
-    if(this.actualResources.isEnough(buildResource)) {
+    var buildTerrain = building.buildTerrain;
+    if(this.actualResources.isEnough(buildResource) && this.actualTerrains.isEnough(buildTerrain)) {
       this.actualResources.addList(buildResource);
+      this.actualTerrains.addList(buildTerrain);
       this.buildings.increment(buildingName);
       this.calculate();
     }
   };
   this.demolish = function(buildingName) {
+    var building = this.definition.get(buildingName);
+    var buildTerrain = building.buildTerrain;
     var quantity = this.buildings.get(buildingName);
     if(quantity>0){
       this.buildings.decrement(buildingName);
+      this.actualTerrains.subtractList(buildTerrain);
       this.calculate();
     }
   };
-})
+}])
 ;
 

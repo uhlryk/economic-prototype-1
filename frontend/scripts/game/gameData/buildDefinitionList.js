@@ -3,10 +3,12 @@
 function BuildDefinitionList(){
   this.list = {};
 }
-BuildDefinitionList.prototype.add = function(name, buildResource, timeResource){
+BuildDefinitionList.prototype.add = function(name, buildResource, buildTerrain, timeResource, timeTerrain){
   this.list[name] = {
     buildResource:buildResource,
-    timeResource:timeResource
+    buildTerrain:buildTerrain,
+    timeResource:timeResource,
+    timeTerrain:timeTerrain
   };
 };
 BuildDefinitionList.prototype.get = function(name){
@@ -20,5 +22,11 @@ BuildDefinitionList.prototype.getBuildResource = function(name){
 };
 BuildDefinitionList.prototype.getTimeResource = function(name){
   return this.get(name).timeResource;
+};
+BuildDefinitionList.prototype.getBuildTerrain = function(name){
+  return this.get(name).buildTerrain;
+};
+BuildDefinitionList.prototype.getTimeTerrain = function(name){
+  return this.get(name).timeTerrain;
 };
 module.exports = BuildDefinitionList;
